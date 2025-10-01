@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Video Pro</title>
+    <title>EasyVideo1.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Editor de Video Pro</h1>
-            <p>Edita tus videos con herramientas profesionales</p>
+            <h1>EasyVideo1.1</h1>
+            <p>Edita tus videos fácil y rápido</p>
         </div>
         
         <div class="main-layout">
@@ -32,58 +32,45 @@
                 
                 <div class="control-section">
                     <div class="section-title">Filtros</div>
-                    <button class="btn btn-small" data-filter="brightness">Brillo</button>
-                    <button class="btn btn-small" data-filter="contrast">Contraste</button>
-                    <button class="btn btn-small" data-filter="saturate">Saturación</button>
-                    <button class="btn btn-small" data-filter="blur">Desenfoque</button>
-                    <button class="btn btn-small" data-filter="sepia">Sepia</button>
-                    <button class="btn btn-small" data-filter="grayscale">Escala Grises</button>
-                    <button class="btn btn-small" data-filter="invert">Invertir</button>
-                    <button class="btn btn-small" data-filter="hue-rotate">Matiz</button>
-                    <button class="btn btn-small" id="clearFilters">Limpiar</button>
+                    <div class="button-grid">
+                        <button class="btn btn-compact" data-filter="brightness">💡 Brillo</button>
+                        <button class="btn btn-compact" data-filter="contrast">⚡ Contraste</button>
+                        <button class="btn btn-compact" data-filter="saturate">🎨 Saturación</button>
+                        <button class="btn btn-compact" data-filter="blur">🌫️ Desenfoque</button>
+                        <button class="btn btn-compact" data-filter="sepia">📸 Sepia</button>
+                        <button class="btn btn-compact" data-filter="grayscale">⚫ Escala Grises</button>
+                        <button class="btn btn-compact" data-filter="invert">🔄 Invertir</button>
+                        <button class="btn btn-compact" data-filter="hue-rotate">🌈 Matiz</button>
+                    </div>
+                    <div class="button-row">
+                        <button class="btn btn-action" id="randomFilters">🎲 Aleatorio</button>
+                        <button class="btn btn-action" id="clearFilters">🗑️ Limpiar</button>
+                    </div>
                 </div>
                 
-                <div class="control-section">
-                    <div class="section-title">Transformaciones</div>
-                    <button class="btn btn-small" data-rotate="90">Rotar 90°</button>
-                    <button class="btn btn-small" data-rotate="180">Rotar 180°</button>
-                    <button class="btn btn-small" data-flip="horizontal">Voltear H</button>
-                    <button class="btn btn-small" data-flip="vertical">Voltear V</button>
-                </div>
+
             </div>
             
             <div class="video-section">
+                <div class="undo-redo-controls">
+                    <button class="undo-redo-btn" id="undoBtn" title="Deshacer (Ctrl+Z)">↶</button>
+                    <button class="undo-redo-btn" id="redoBtn" title="Rehacer (Ctrl+Y)">↷</button>
+                </div>
                 <div class="video-container" id="videoContainer">
                     <div class="video-placeholder" id="videoPlaceholder">
                         Selecciona un video para comenzar
                     </div>
                 </div>
                 
-                <div class="timeline">
-                    <div class="timeline-header">
-                        <div class="timeline-tools">
-                            <button class="timeline-btn" id="selectTool" title="Seleccionar">■</button>
-                            <button class="timeline-btn" id="splitTool" title="Dividir">│</button>
-                            <button class="timeline-btn" id="trimTool" title="Recortar">✂</button>
-                            <button class="timeline-btn" id="deleteTool" title="Borrar">✖</button>
-                            <button class="timeline-btn" id="prevSegment" title="Segmento Anterior">◀</button>
-                            <button class="timeline-btn" id="nextSegment" title="Siguiente Segmento">▶</button>
-                            <button class="timeline-btn" id="resetTool" title="Restablecer">↻</button>
-                            <span class="timeline-time" id="currentTime">00:00</span>
-                            <span class="timeline-separator">/</span>
-                            <span class="timeline-time" id="totalTime">00:00</span>
-                        </div>
+
+                
+
+                
+                <div class="progress-container">
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
                     </div>
-                    <div class="timeline-container">
-                        <div class="timeline-track" id="timelineTrack">
-                            <div class="timeline-thumbnails" id="timelineThumbnails"></div>
-                            <div class="timeline-waveform" id="timelineWaveform"></div>
-                            <div class="timeline-selection" id="timelineSelection"></div>
-                            <div class="timeline-cursor" id="timelineCursor"></div>
-                            <div class="timeline-markers" id="timelineMarkers"></div>
-                        </div>
-                        <div class="timeline-ruler" id="timelineRuler"></div>
-                    </div>
+                    <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
                 </div>
                 
                 <div class="controls">
@@ -93,9 +80,7 @@
                     <button class="control-btn" id="seekForwardBtn">+10s</button>
                 </div>
                 
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
+
             </div>
             
             <div class="right-panel">
@@ -103,18 +88,44 @@
                     <div class="section-title">Configuración</div>
                     
                     <div class="slider-group">
-                        <label>Volumen</label>
+                        <label>Volumen <span id="volumeValue">50%</span></label>
                         <input type="range" class="slider" min="0" max="100" value="50" id="volumeSlider">
                     </div>
                     
                     <div class="slider-group">
-                        <label>Velocidad</label>
+                        <label>Velocidad <span id="speedValue">1x</span></label>
                         <input type="range" class="slider" min="0.25" max="3" step="0.25" value="1" id="speedSlider">
                     </div>
                     
-
-                    
                     <button class="btn" id="downloadBtn">Descargar MP4</button>
+                </div>
+                
+                <div class="control-section">
+                    <div class="section-title">Transformaciones</div>
+                    <div class="button-grid">
+                        <button class="btn btn-compact" data-rotate="90">↻ 90°</button>
+                        <button class="btn btn-compact" data-rotate="180">↻ 180°</button>
+                        <button class="btn btn-compact" data-flip="horizontal">↔️ Horizontal</button>
+                        <button class="btn btn-compact" data-flip="vertical">↕️ Vertical</button>
+                    </div>
+                </div>
+                
+                <div class="control-section">
+                    <div class="section-title">📊 Análisis</div>
+                    <div id="videoAnalysis" class="analysis-panel" style="display: none;">
+                        <div class="analysis-compact">
+                            <div class="analysis-row">
+                                <span id="resolution">-</span> • <span id="framerate">-</span>
+                            </div>
+                            <div class="analysis-row">
+                                <span id="duration">-</span> • <span id="format">-</span>
+                            </div>
+                            <div class="analysis-row">
+                                <span id="filesize">-</span> • <span id="bitrate">-</span>
+                            </div>
+                        </div>
+                        <canvas id="colorHistogram" width="200" height="60"></canvas>
+                    </div>
                 </div>
                 
 
@@ -130,7 +141,6 @@
             <button class="chatbot-close" id="chatbotClose">×</button>
         </div>
         <div class="chatbot-messages" id="chatbotMessages">
-            <div class="message bot">¡Hola! Soy tu asistente de edición de video. ¿En qué puedo ayudarte?</div>
         </div>
         <div class="chatbot-input">
             <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
